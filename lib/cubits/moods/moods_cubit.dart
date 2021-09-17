@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:mood_tracker/helper/json_helper.dart';
 import 'package:mood_tracker/models/mood.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

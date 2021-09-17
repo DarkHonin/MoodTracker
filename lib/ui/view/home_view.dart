@@ -21,10 +21,10 @@ class HomeView extends StatelessWidget {
                 Navigator.pushNamed(context, Navigation.MOODS_VIEW);
               }),
           _iconButton(
-              title: "Add Mood",
+              title: "Take Metric",
               icon: Icons.add,
               onPress: () {
-                Navigator.pushNamed(context, Navigation.CREATE_MOOD_VIEW);
+                Navigator.pushNamed(context, Navigation.CREATE_METRIC);
               })
         ],
       ),
