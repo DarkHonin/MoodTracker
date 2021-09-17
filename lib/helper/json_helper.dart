@@ -14,8 +14,9 @@ class JsonHelper {
   Future<bool> saveJson(String path, Map<String, dynamic> data) async {
     final root_path = await '';
     try {
-      final file = File('$root_path/$path');
-      file.writeAsString(jsonEncode(data));
+      final file = File('$path');
+      print(jsonEncode(data));
+      // file.writeAsString(jsonEncode(data));
       return true;
     } catch (e) {
       print(e);

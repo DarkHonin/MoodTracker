@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:mood_tracker/ui/widgets/mood_slider.dart';
+
 class MoodMetric extends StatefulWidget {
   const MoodMetric({Key? key}) : super(key: key);
 
@@ -8,16 +10,12 @@ class MoodMetric extends StatefulWidget {
 }
 
 class _MoodMetricState extends State<MoodMetric> {
-  Widget _moodMetrictSlider(
-    String title,
-  ) {
-    return Column(children: [
-      Text(title),
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    
+
+
     return Scaffold(
       body: Center(
         child: SizedBox(

@@ -15,6 +15,12 @@ class HomeView extends StatelessWidget {
         crossAxisCount: 4,
         children: [
           _iconButton(
+              title: "View Moods",
+              icon: Icons.list,
+              onPress: () {
+                Navigator.pushNamed(context, Navigation.MOODS_VIEW);
+              }),
+          _iconButton(
               title: "Add Mood",
               icon: Icons.add,
               onPress: () {
