@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:mood_tracker/cubits/moods/moods_cubit.dart';
 import 'package:mood_tracker/cubits/moodStore/mood_store_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 

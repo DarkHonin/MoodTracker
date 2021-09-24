@@ -1,20 +1,29 @@
 part of './mood_store_cubit.dart';
 
-class MoodStoreState {}
-
-class MoodStoreInitState extends MoodStoreState {}
+class MoodStoreState {
+  final Map<String, MoodPoint> moodPoints;
+  final String message;
+  MoodStoreState(this.moodPoints, this.message) {
+    print("MoodStoreState: $moodPoints");
+  }
+}
 
 class MoodStoreLoadingState extends MoodStoreState {
-  final String message;
-  MoodStoreLoadingState(this.message);
+  MoodStoreState state;
+  MoodStoreLoadingState(message, this.state) : super(state.moodPoints, message);
 }
 
 class MoodStoreReadyState extends MoodStoreState {
-  final List<MoodPoint> moodPoints;
-  MoodStoreReadyState(this.moodPoints);
+  MoodStoreState state;
+  MoodStoreReadyState(moodPoints, this.state) : super(moodPoints, "");
 }
 
 class MoodStoreErrorState extends MoodStoreState {
-  final String message;
-  MoodStoreErrorState(this.message);
+  MoodStoreState state;
+  MoodStoreErrorState(message, this.state) : super(state.moodPoints, message);
+}
+
+class MoodStoreSavedState extends MoodStoreState {
+  MoodStoreState state;
+  MoodStoreSavedState(this.state) : super(state.moodPoints, state.message);
 }

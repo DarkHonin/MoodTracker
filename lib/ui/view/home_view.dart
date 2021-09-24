@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/core/Navigation.dart';
+import 'package:mood_tracker/core/navigation.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   Widget _iconButton({title, icon, onPress}) {
-    return Center(child: GestureDetector(onTap: onPress, child: Column(children: [Icon(icon), Text(title)])));
+    return Center(
+        child: GestureDetector(
+            onTap: onPress,
+            child: Column(children: [Icon(icon), Text(title)])));
   }
 
   @override

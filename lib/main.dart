@@ -3,10 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:mood_tracker/ui/view/home_view.dart';
 import 'package:mood_tracker/ui/view/moods_view.dart';
 import 'package:mood_tracker/core/dependency_injection.dart';
-import 'package:mood_tracker/core/Navigation.dart';
+import 'package:mood_tracker/core/navigation.dart';
+
+import 'cubits/moods/moods_cubit.dart';
 
 void main() async {
   await DependencyInjection().init();
+  sl<MoodsCubit>().loadMoods();
   runApp(const MyApp());
 }
 

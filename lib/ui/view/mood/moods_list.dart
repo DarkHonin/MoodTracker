@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker/core/dependency_injection.dart';
+import 'package:mood_tracker/core/navigation.dart';
 import 'package:mood_tracker/cubits/moods/moods_cubit.dart';
 
 class MoodsView extends StatefulWidget {
@@ -12,13 +13,7 @@ class MoodsView extends StatefulWidget {
 }
 
 class _MoodsViewState extends State<MoodsView> {
-  TextEditingController _moodInput = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    sl<MoodsCubit>().loadMoods();
-  }
+  final TextEditingController _moodInput = TextEditingController();
 
   Widget _createDialog(c) {
     return SimpleDialog(
@@ -67,7 +62,17 @@ class _MoodsViewState extends State<MoodsView> {
                 return SizedBox(
                     width: 400,
                     child: ListView(
-                      children: state.moods.map((e) => ListTile(title: Text(e.name))).toList(),
+                      children: state.moods.keys
+                          .map((e) => ListTile(
+                                title: Text(e),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.arrow_right),
+                                  onPressed: () => Navigator.pushNamed(
+                                      context, Navigation.MOOD_HISTORY,
+                                      arguments: e),
+                                ),
+                              ))
+                          .toList(),
                     ));
               }
               if (state is MoodsLoadedState) {
