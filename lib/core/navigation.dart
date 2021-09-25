@@ -6,12 +6,14 @@ import 'package:mood_tracker/ui/view/home_view.dart';
 import 'package:mood_tracker/ui/view/mood/moods_list.dart';
 import 'package:mood_tracker/ui/view/mood/take_metric.dart';
 import 'package:mood_tracker/ui/view/mood/view_mood_points.dart';
+import 'package:mood_tracker/ui/view/tags/submit_tags.dart';
 
 class Navigation {
   static const HOME_VIEW = '/';
   static const CREATE_METRIC = '/mood/create';
   static const MOOD_HISTORY = '/mood/history';
   static const MOODS_VIEW = '/moods';
+  static const TAG_EDIT = '/tag/create';
 
   static Route<RouteSettings> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -23,6 +25,8 @@ class Navigation {
         return _endpoint(MoodMetricView());
       case MOOD_HISTORY:
         return _endpoint(MoodPointsView(settings.arguments as String));
+      case TAG_EDIT:
+        return _endpoint(SubmitTagsView());
       default:
         return _endpoint(Text("Whoops"));
     }

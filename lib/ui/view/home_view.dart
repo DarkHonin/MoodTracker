@@ -32,6 +32,13 @@ class HomeView extends StatelessWidget {
                 MaterialButton(
                   color: Colors.blue,
                   onPressed: () {
+                    Navigator.pushNamed(context, Navigation.TAG_EDIT);
+                  },
+                  child: Center(child: Text("Tag your time")),
+                ),
+                MaterialButton(
+                  color: Colors.blue,
+                  onPressed: () {
                     Navigator.pushNamed(context, Navigation.CREATE_METRIC);
                   },
                   child: Center(child: Text("Activity")),
