@@ -4,7 +4,7 @@ import 'package:mood_tracker/core/dependency_injection.dart';
 import 'package:mood_tracker/cubits/moodStore/mood_store_cubit.dart';
 import 'package:mood_tracker/cubits/moods/moods_cubit.dart';
 import 'package:mood_tracker/models/mood_point.dart';
-import 'package:mood_tracker/ui/widgets/mood_point_chart.dart';
+import 'package:mood_tracker/ui/widgets/mood/mood_graph.dart';
 
 class MoodPointsView extends StatefulWidget {
   final String mood;
@@ -30,8 +30,8 @@ class _MoodPointsViewState extends State<MoodPointsView> {
           ListView.builder(
               itemCount: cubit.state.moods[widget.mood]!.points.length + 1,
               itemBuilder: (c, i) {
-                if (i == 0)
-                  return MoodPointChart(cubit.state.moods[widget.mood]);
+                return Container();
+                // return MoodPointChart(cubit.state.moods[widget.mood]);/
                 MoodPoint e = cubit.state.moods[widget.mood]!.points[i - 1];
                 return ListTile(
                   title: Text(

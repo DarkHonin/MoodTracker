@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker/core/dependency_injection.dart';
 import 'package:mood_tracker/core/navigation.dart';
 import 'package:mood_tracker/cubits/moods/moods_cubit.dart';
+import 'package:mood_tracker/ui/widgets/mood/mood.dart';
 
 class MoodsView extends StatefulWidget {
   const MoodsView({Key? key}) : super(key: key);
@@ -61,19 +62,11 @@ class _MoodsViewState extends State<MoodsView> {
               if (state is MoodsLoadedState) {
                 return SizedBox(
                     width: 400,
-                    child: ListView(
-                      children: state.moods.keys
-                          .map((e) => ListTile(
-                                title: Text(e),
-                                trailing: IconButton(
-                                  icon: Icon(Icons.arrow_right),
-                                  onPressed: () => Navigator.pushNamed(
-                                      context, Navigation.MOOD_HISTORY,
-                                      arguments: e),
-                                ),
-                              ))
-                          .toList(),
-                    ));
+                    child: ListView.builder(
+                        itemCount: state.moods.values.length,
+                        itemBuilder: (c, e) {
+                          return MoodWidget(state.moods.values.toList()[e]);
+                        }));
               }
               if (state is MoodsLoadedState) {
                 return CircularProgressIndicator();
