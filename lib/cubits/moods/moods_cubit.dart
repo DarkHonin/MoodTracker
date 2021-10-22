@@ -1,38 +1,44 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:mood_tracker/core/dependency_injection.dart';
+import 'package:mood_tracker/entity/mood_store_entity.dart';
 
 import 'package:mood_tracker/models/mood.dart';
 import 'package:mood_tracker/models/mood_point.dart';
+import 'package:mood_tracker/repo/local_storage_mood_repo.dart';
 import 'package:mood_tracker/ui/widgets/mood_slider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part './moods_state.dart';
 
 class MoodsCubit extends Cubit<MoodsState> {
-  MoodsCubit() : super(MoodsState({}, ''));
+  final LocalStorageMoodRepo _repo = sl<LocalStorageMoodRepo>();
+  MoodsCubit() : super(MoodsState(const MoodStoreEntity({})));
 
   loadMoods() async {
-    emit(MoodsLoadingState(state));
+    emit(MoodsLoadingState(state.moodStore));
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String rawJson = prefs.getString('moods') ?? '';
-
-      Map<String, dynamic> preParse = jsonDecode(rawJson);
+      Map<String, dynamic> rawJson = _repo.load();
 
       Map<String, Mood> moods =
-          preParse.map((k, e) => MapEntry(k, Mood.fromJson(e)));
-      emit(MoodsLoadedState(moods, state));
+          rawJson.map((k, e) => MapEntry(k, Mood.fromJson(e)));
+      emit(MoodsLoadedState(state.moodStore.copyWith(moods: moods)));
     } catch (e) {
       print(e);
-      emit(MoodsErrorState("No moods loaded", state));
+      emit(MoodsErrorState(const MoodStoreEntity({})));
     }
   }
 
   createMood(String moodName) async {
-    state.moods[moodName] = (Mood(moodName, []));
-    save();
-    emit(MoodsLoadedState(state.moods, state));
+    emit(MoodsLoadingState(state.moodStore));
+    state.moodStore.moods[moodName] = (Mood(moodName, []));
+
+    Map<String, dynamic> store =
+        state.moodStore.moods.map((key, value) => MapEntry(key, value.toMap()));
+
+    _repo.save(store);
+    emit(MoodsLoadedState(state.moodStore));
   }
 
   addMoodPoint(String key, MoodPoint value) async {

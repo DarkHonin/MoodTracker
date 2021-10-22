@@ -21,31 +21,34 @@ class _MoodSliderState extends State<MoodSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-        fit: BoxFit.fitWidth,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(widget.title,
-                style: TextStyle(decoration: TextDecoration.underline)),
-            Row(
-              children: [
-                SizedBox(child: Text(value.toString()), width: 25),
-                Slider(
-                  min: -5,
-                  max: 5,
-                  value: value,
-                  divisions: 10,
-                  onChanged: (v) {
-                    setState(() {
-                      value = v;
-                      sl<MoodStoreCubit>().setMoodValue(widget.title, v);
-                    });
-                  },
-                )
-              ],
-            )
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(widget.title,
+            style: TextStyle(decoration: TextDecoration.underline)),
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(child: Text(value.toString()), width: 25),
+              Container(
+                  width: 200,
+                  child: Slider(
+                    min: -5,
+                    max: 5,
+                    value: value,
+                    divisions: 10,
+                    onChanged: (v) {
+                      setState(() {
+                        value = v;
+                        sl<MoodStoreCubit>().setMoodValue(widget.title, v);
+                      });
+                    },
+                  ))
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
